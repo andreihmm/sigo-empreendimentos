@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfólio de Prédios</title>
+    <link rel="stylesheet" href="static/css/style.css">
+    <script src="static/js/menu.js"></script>
+</head>
+
+<body>
+    <!-- Carregar o header -->
+    <div id="header-placeholder"></div>
+
+    <!-- Conteúdo principal da página -->
+    <h1>Bem-vindo ao Portfólio de Prédios</h1>
+    <p>Explore nossos projetos.</p>
+
+    <!-- Carregar o footer -->
+    <div id="footer-placeholder"></div>
+
+    <script>
+        // Carregar o header
+        fetch('static/includes/header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-placeholder').innerHTML = data;
+            });
+
+        // Carregar o footer
+        fetch('static/includes/footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer-placeholder').innerHTML = data;
+            });
+
+
+    </script>
+</body>
+
+</html>

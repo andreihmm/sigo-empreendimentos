@@ -1,0 +1,116 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+h1 {
+    color: #6200ea;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    margin: 10px 0;
+}
+
+a {
+    text-decoration: none;
+    color: #6200ea;
+}
+
+/* Estilos para o Header */
+header {
+    background-color: #6200ea;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+}
+
+header .logo img {
+    width: 100px;
+}
+
+/* Estilos do Menu */
+/* Reset básico do menu */
+nav {
+    display: none;
+    /* Sempre escondido por padrão */
+}
+
+/* Estilo do menu hambúrguer */
+.menu-toggle {
+    display: flex;
+    /* Sempre visível */
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 25px;
+    cursor: pointer;
+}
+
+.menu-toggle .bar {
+    height: 4px;
+    width: 100%;
+    background-color: white;
+    border-radius: 2px;
+}
+
+/* Quando o menu hambúrguer for clicado, exibe o menu */
+.nav-active {
+    display: block !important;
+    /* Força a exibição do menu */
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background-color: #6200ea;
+    padding: 10px 0;
+}
+
+.nav-active ul {
+    text-align: left;
+    padding: 0;
+}
+
+.nav-active ul li {
+    display: block;
+    padding: 10px;
+}
+
+.nav-active ul li a {
+    color: white;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+
+/* Estilo para o Footer */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+footer a {
+    text-decoration: none;
+    color: white;
+    margin: 0 10px;
+}

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="titulo">Detalhes do Prédio</title>
+    <link rel="stylesheet" href="static/css/style.css">
+</head>
+
+<body>
+    <h1 id="nome"></h1>
+    <p id="cidade"></p>
+    <img id="imagem" src="" alt="">
+    <p id="descricao"></p>
+    <a href="index.html">Voltar</a>
+
+    <script>
+        // Pegar o ID da URL
+        let params = new URLSearchParams(window.location.search);
+        let id = params.get("id");
+
+        // Carregar JSON e exibir detalhes do prédio
+        fetch('static/data/predios.json')
+            .then(response => response.json())
+            .then(data => {
+                let predio = data.find(p => p.id == id);
+                if (predio) {
+                    document.getElementById("titulo").textContent = predio.nome;
+                    document.getElementById("nome").textContent = predio.nome;
+                    document.getElementById("cidade").textContent = `Cidade: ${predio.cidade}`;
+                    document.getElementById("imagem").src = `static/img/${predio.imagem}`;
+                    document.getElementById("imagem").alt = predio.nome;
+                    document.getElementById("descricao").textContent = predio.descricao;
+                } else {
+                    document.body.innerHTML = "<h1>Prédio não encontrado</h1>";
+                }
+            })
+            .catch(error => console.error("Erro ao carregar JSON:", error));
+    </script>
+</body>
+
+</html>

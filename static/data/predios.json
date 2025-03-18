@@ -1,0 +1,16 @@
+[
+    {
+        "id": 1,
+        "nome": "Edifício Alpha",
+        "cidade": "São Paulo",
+        "imagem": "alpha.jpg",
+        "descricao": "Prédio com arquitetura moderna e sustentável."
+    },
+    {
+        "id": 2,
+        "nome": "Residencial Beta",
+        "cidade": "Rio de Janeiro",
+        "imagem": "beta.jpg",
+        "descricao": "Residencial de luxo no coração da cidade."
+    }
+]
