@@ -1,43 +1,138 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="titulo">Detalhes do Prédio</title>
-    <link rel="stylesheet" href="static/css/style.css">
+    <title>Página do Prédio</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: white;
+            color: green;
+        }
+
+        section {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1,
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        .intro {
+            align-items: flex-start;
+            padding-left: 20px;
+        }
+
+        .carousel {
+            position: relative;
+            width: 70%;
+            max-width: 600px;
+        }
+
+        .carousel img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .carousel button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: green;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 50%;
+        }
+
+        .carousel .prev {
+            left: 10px;
+        }
+
+        .carousel .next {
+            right: 10px;
+        }
+
+        iframe {
+            width: 100%;
+            height: 80vh;
+        }
+    </style>
 </head>
 
 <body>
-    <h1 id="nome"></h1>
-    <p id="cidade"></p>
-    <img id="imagem" src="" alt="">
-    <p id="descricao"></p>
-    <a href="index.html">Voltar</a>
+
+    <!-- Tela de apresentação -->
+    <section class="intro">
+        <h1>Nome do Prédio</h1>
+        <p>Localização</p>
+    </section>
+
+    <!-- Galeria -->
+    <section>
+        <h2>Galeria</h2>
+        <div class="carousel" id="gallery">
+            <button class="prev" onclick="changeImage(-1, 'gallery')">&#10094;</button>
+            <img src="image1.jpg" alt="Imagem do Prédio">
+            <button class="next" onclick="changeImage(1, 'gallery')">&#10095;</button>
+        </div>
+    </section>
+
+    <!-- Planta -->
+    <section>
+        <h2>Planta</h2>
+        <div class="carousel" id="floorplans">
+            <button class="prev" onclick="changeImage(-1, 'floorplans')">&#10094;</button>
+            <img src="floor1.jpg" alt="Planta do Prédio">
+            <button class="next" onclick="changeImage(1, 'floorplans')">&#10095;</button>
+        </div>
+    </section>
+
+    <!-- Sobre a Localização -->
+    <section>
+        <h2>Sobre a Localização</h2>
+        <p>Descrição detalhada da localização do prédio.</p>
+    </section>
+
+    <!-- Mapa -->
+    <section>
+        <h2>Mapa</h2>
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.8354345093686!2d144.95373531568225!3d-37.81627944202148!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d43f3f858fd%3A0x5030bfbca7e58d0!2sSome%20Building!5e0!3m2!1sen!2sbr!4v1614144325075!5m2!1sen!2sbr"
+            allowfullscreen="" loading="lazy"></iframe>
+    </section>
 
     <script>
-        // Pegar o ID da URL
-        let params = new URLSearchParams(window.location.search);
-        let id = params.get("id");
+        const galleryImages = ["image1.jpg", "image2.jpg", "image3.jpg"];
+        const floorPlans = ["floor1.jpg", "floor2.jpg", "floor3.jpg"];
 
-        // Carregar JSON e exibir detalhes do prédio
-        fetch('static/data/predios.json')
-            .then(response => response.json())
-            .then(data => {
-                let predio = data.find(p => p.id == id);
-                if (predio) {
-                    document.getElementById("titulo").textContent = predio.nome;
-                    document.getElementById("nome").textContent = predio.nome;
-                    document.getElementById("cidade").textContent = `Cidade: ${predio.cidade}`;
-                    document.getElementById("imagem").src = `static/img/${predio.imagem}`;
-                    document.getElementById("imagem").alt = predio.nome;
-                    document.getElementById("descricao").textContent = predio.descricao;
-                } else {
-                    document.body.innerHTML = "<h1>Prédio não encontrado</h1>";
-                }
-            })
-            .catch(error => console.error("Erro ao carregar JSON:", error));
+        let galleryIndex = 0;
+        let floorPlanIndex = 0;
+
+        function changeImage(direction, section) {
+            if (section === "gallery") {
+                galleryIndex = (galleryIndex + direction + galleryImages.length) % galleryImages.length;
+                document.querySelector("#gallery img").src = galleryImages[galleryIndex];
+            } else if (section === "floorplans") {
+                floorPlanIndex = (floorPlanIndex + direction + floorPlans.length) % floorPlans.length;
+                document.querySelector("#floorplans img").src = floorPlans[floorPlanIndex];
+            }
+        }
     </script>
+
 </body>
 
 </html>

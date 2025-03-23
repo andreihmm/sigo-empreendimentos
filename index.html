@@ -13,9 +13,62 @@
     <!-- Carregar o header -->
     <div id="header-placeholder"></div>
 
-    <!-- Conteúdo principal da página -->
-    <h1>Bem-vindo ao Portfólio de Prédios</h1>
-    <p>Explore nossos projetos.</p>
+    <div class="hero">
+        <div class="overlay"></div>
+        <div class="content">
+            <h1>Sigo Empreendimentos</h1>
+            <p>Um novo empreendimento moderno e sustentável está chegando à cidade. Reserve sua unidade agora!</p>
+        </div>
+    </div>
+
+    <section class="destaques">
+        <h2>Destaques</h2>
+        <div class="slider-container">
+            <button class="arrow arrow-left" onclick="moveSlide(-1)">&#10094;</button>
+            <div class="cards-wrapper" id="cardSlider">
+                <!-- AQUI OS PRÉDIOS APARECERÃO -->
+            </div>
+            <button class="arrow arrow-right" onclick="moveSlide(1)">&#10095;</button>
+        </div>
+        <div class="indicators" id="indicatorContainer"></div>
+    </section>
+
+    <section class="sobreNos">
+        <div class="sobreNosContainer">
+            <div class="sobreNosEsq">
+                <h2>Sobre nós</h2>
+                <div class="sobreNosText">
+                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officiis rem nam tempore harum nobis
+                        fuga ea, quae illum delectus commodi aut quisquam ducimus similique sint. Vitae, velit
+                        provident. Dolore, quos!</p>
+                    <button>Saiba mais</button>
+                </div>
+            </div>
+            <div class="sobreNosDir">
+                <img src="static/img/Localização.jpg" alt="Imagem">
+            </div>
+        </div>
+    </section>
+
+    <section class="entrarEmContato">
+        <div class="entrarEmContatoContainer">
+            <div class="eECEsq">
+                <h2>Entre em contato Vasco</h2>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facere nihil ullam voluptate distinctio,
+                    necessitatibus, quo magni sit sequi excepturi minima veniam error repellat quos fugit blanditiis
+                    nesciunt ex delectus voluptatibus.</p>
+                <!-- Botão WhatsApp -->
+                <a href="https://wa.me/5511999999999" class="whatsappButton" target="_blank">
+                    <span>Chamar no WhatsApp</span>
+                </a>
+            </div>
+            <div class="eECDir">
+                <img src="path/to/your-image.jpg" alt="Imagem">
+            </div>
+        </div>
+    </section>
+
+
 
     <!-- Carregar o footer -->
     <div id="footer-placeholder"></div>
@@ -35,6 +88,93 @@
                 document.getElementById('footer-placeholder').innerHTML = data;
             });
 
+
+
+        let currentIndex = 0;
+        let totalSlides = 0;
+        const cardSlider = document.getElementById('cardSlider');
+        const indicatorContainer = document.getElementById('indicatorContainer');
+
+        // Função para carregar os prédios dinamicamente do JSON
+        async function loadBuildings() {
+            try {
+                const response = await fetch('predios.json');
+                const predios = await response.json();
+                totalSlides = Math.ceil(predios.length / 3);
+
+                // Criar os cards dinamicamente
+                predios.forEach(predio => {
+                    const cardLink = document.createElement('a');
+                    cardLink.href = predio.link;
+
+                    const card = document.createElement('div');
+                    card.classList.add('card');
+
+                    const img = document.createElement('img');
+                    img.src = predio.imagem;
+                    img.alt = `Imagem de ${predio.nome}`;
+
+                    const h3 = document.createElement('h3');
+                    h3.textContent = predio.nome;
+
+                    const pLocalizacao = document.createElement('p');
+                    pLocalizacao.textContent = `Localização: ${predio.localizacao}`;
+
+                    const pDescricao = document.createElement('p');
+                    pDescricao.textContent = `Descrição: ${predio.descricao}`;
+
+                    const ul = document.createElement('ul');
+                    ul.innerHTML = `
+                    <li><strong>Metragem:</strong> ${predio.metragem}</li>
+                    <li><strong>Nº de dormitórios:</strong> ${predio.dormitorios}</li>
+                `;
+
+                    card.appendChild(img);
+                    card.appendChild(h3);
+                    card.appendChild(pLocalizacao);
+                    card.appendChild(pDescricao);
+                    card.appendChild(ul);
+                    cardLink.appendChild(card);
+                    cardSlider.appendChild(cardLink);
+                });
+
+                updateIndicators();
+            } catch (error) {
+                console.error('Erro ao carregar os prédios:', error);
+            }
+        }
+
+        // Função para atualizar os indicadores
+        function updateIndicators() {
+            indicatorContainer.innerHTML = '';
+            for (let i = 0; i < totalSlides; i++) {
+                let dot = document.createElement('div');
+                dot.classList.add('indicator');
+                if (i === currentIndex) dot.classList.add('active');
+                dot.addEventListener('click', () => moveToSlide(i));
+                indicatorContainer.appendChild(dot);
+            }
+        }
+
+        // Função para mover o slide
+        function moveSlide(step) {
+            currentIndex += step;
+            if (currentIndex < 0) currentIndex = totalSlides - 1;
+            if (currentIndex >= totalSlides) currentIndex = 0;
+
+            cardSlider.style.transform = `translateX(-${currentIndex * 100}%)`;
+            updateIndicators();
+        }
+
+        // Função para ir para um slide específico
+        function moveToSlide(index) {
+            currentIndex = index;
+            cardSlider.style.transform = `translateX(-${currentIndex * 100}%)`;
+            updateIndicators();
+        }
+
+        // Inicia o carregamento dos prédios
+        loadBuildings();
 
     </script>
 </body>
