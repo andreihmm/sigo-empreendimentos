@@ -6,6 +6,8 @@ document.addEventListener("DOMContentLoaded", function () {
         if (menuToggle && navMenu) {
             menuToggle.addEventListener("click", function () {
                 navMenu.classList.toggle("nav-active"); // Alterna a classe para abrir e fechar
+                menuToggle.classList.toggle("active"); // Alterna o efeito de "X"
+
             });
         } else {
             console.error("Erro: Elementos 'menu-toggle' ou 'nav-menu' não encontrados.");

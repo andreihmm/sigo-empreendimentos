@@ -9,57 +9,132 @@ body {
     text-align: center;
     background-color: #f4f4f4;
     color: #333;
+    overflow-x: hidden;
+    font-family: 'Roboto', Arial, sans-serif;
+    font-size: 16px;
+    /* Tamanho padrão */
+    line-height: 1.6;
+    /* Melhor legibilidade */
+    color: var(--text-color);
+    /* Cor de texto escura */
+    background-color: var(--background-color);
+    /* Cor de fundo leve */
+
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-family: 'Merriweather', serif;
+    /* Fonte serifada para os títulos */
+    font-weight: bold;
+    color: var(--primary-color);
+    /* Usar o verde escuro para os títulos */
 }
 
 h1 {
-    color: #6200ea;
+    font-size: 32px;
+    margin-bottom: 20px;
 }
 
-ul {
+h2 {
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+
+h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+h4 {
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+
+p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+/* Links */
+a {
+    color: var(--link-color);
+    /* Cor de link verde escuro */
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--hover-color);
+    /* Cor mais clara de verde ao passar o mouse */
+    text-decoration: underline;
+}
+
+
+ul.menu {
     list-style: none;
     padding: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    text-align: left;
+}
+
+ul.menu li a {
+    margin-bottom: 1px;
 }
 
 li {
-    margin: 10px 0;
+    padding: 20px;
 }
 
-a {
+li a {
     text-decoration: none;
-    color: #6200ea;
+    color: #ffffff;
+    display: flex;
+    width: 100%;
 }
 
 /* Estilos para o Header */
+
 header {
-    background-color: #6200ea;
     color: white;
     padding: 10px;
     text-align: center;
-    position: relative;
+    position: absolute;
+    width: 100%;
     display: flex;
     justify-content: space-between;
+    z-index: 1;
 }
 
 header .logo img {
     width: 100px;
 }
 
-/* Estilos do Menu */
-/* Reset básico do menu */
 nav {
-    display: none;
-    /* Sempre escondido por padrão */
+    position: absolute;
+    top: 0;
+    right: -100%;
+    width: 250px;
+    height: 60vh;
+    background-color: #00000075;
+    padding-top: 60px;
+    transition: right 0.3s ease-in-out;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
 }
 
-/* Estilo do menu hambúrguer */
 .menu-toggle {
     display: flex;
-    /* Sempre visível */
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 6px;
     width: 30px;
-    height: 25px;
     cursor: pointer;
+    z-index: 1000;
 }
 
 .menu-toggle .bar {
@@ -67,50 +142,584 @@ nav {
     width: 100%;
     background-color: white;
     border-radius: 2px;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 
-/* Quando o menu hambúrguer for clicado, exibe o menu */
+/* Animação para transformar o menu em "X" */
+.menu-toggle.active .bar:nth-child(1) {
+    transform: translateY(10px) rotate(45deg);
+}
+
+.menu-toggle.active .bar:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.active .bar:nth-child(3) {
+    transform: translateY(-10px) rotate(-45deg);
+}
+
 .nav-active {
-    display: block !important;
-    /* Força a exibição do menu */
-    position: absolute;
-    top: 60px;
-    left: 0;
-    width: 100%;
-    background-color: #6200ea;
-    padding: 10px 0;
-}
-
-.nav-active ul {
-    text-align: left;
-    padding: 0;
-}
-
-.nav-active ul li {
-    display: block;
-    padding: 10px;
-}
-
-.nav-active ul li a {
-    color: white;
-    font-size: 18px;
-    text-decoration: none;
+    right: 0 !important;
 }
 
 
 /* Estilo para o Footer */
 footer {
-    background-color: #333;
+    background-color: #0B3D02;
     color: white;
-    text-align: center;
-    padding: 20px;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+    padding: 20px 0;
 }
 
-footer a {
+.footer-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: auto;
+    align-items: center;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 200px;
+    padding: 10px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.slogan {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.social-links li,
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.social-links li a,
+.footer-section ul li a {
     text-decoration: none;
     color: white;
-    margin: 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.social-links img,
+.footer-section ul img {
+    width: 40px;
+    height: 40px;
+}
+
+/* INDEX */
+
+/* INICIAL */
+
+.hero {
+    position: relative;
+    width: 100%;
+    height: 60vh;
+    background: url('../img/ilha-de-capri.jpg') no-repeat center center/cover;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+}
+
+.content {
+    position: absolute;
+    background-color: #00000043;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: left;
+    width: 60%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+}
+
+.pin-icon {
+    width: 20px;
+    /* Ajuste conforme necessário */
+    height: auto;
+    /* Deixa o ícone branco (se for preto) */
+}
+
+.location {
+    display: flex;
+    align-items: center;
+}
+
+
+/* DESTAQUES */
+
+.destaques {
+    padding: 50px 20px;
+    text-align: center;
+    background: #f5f5f5;
+    position: relative;
+}
+
+.destaques h2 {
+    margin-bottom: 20px;
+}
+
+
+.slider-container {
+    max-width: 1200px;
+    margin: auto;
+    overflow: hidden;
+    position: relative;
+}
+
+.cards-wrapper {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.cards-wrapper a {
+    flex: 0 0 calc(100% / 3);
+    color: #000000;
+    text-decoration: none;
+}
+
+.cards-wrapper ul {
+    list-style-type: none;
+}
+
+.cards-wrapper li {
+    top: 10px;
+}
+
+.card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    margin: 20px;
+}
+
+.card-text {
+    padding: 10px;
+}
+
+.building-img {
+    width: 100%;
+    border-radius: 10px 10px 0 0;
+    object-fit: cover;
+    max-height: 700px;
+}
+
+.card h3 {
+    padding: 10px;
+}
+
+.card-content {
+    padding: 10px;
+}
+
+.arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.arrow-left {
+    left: 10px;
+}
+
+.arrow-right {
+    right: 10px;
+}
+
+.indicators {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.indicator {
+    width: 20px;
+    height: 5px;
+    margin: 5px;
+    background: gray;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.indicator.active {
+    background: black;
+}
+
+/* SOBRE NÓS */
+
+.sobreNos {
+    padding: 50px 20px;
+    text-align: center;
+    background: #f1f1f1;
+    /* Cor de fundo mais suave */
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.sobreNosContainer {
+    display: flex;
+    width: 80%;
+    height: 50vh;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    /* Permite que o texto seja posicionado sobre a imagem */
+    gap: 30px;
+}
+
+.sobreNosEsq {
+    position: absolute;
+    /* Faz com que o texto fique sobre a imagem */
+    top: 50%;
+    /* Posiciona o texto na metade superior */
+    left: 10%;
+    /* Ajuste horizontal do texto */
+    transform: translateY(-50%);
+    /* Centraliza verticalmente */
+    width: 40%;
+    /* Ajuste a largura do conteúdo */
+    z-index: 2;
+    /* Coloca o texto acima da imagem */
+    text-align: left;
+}
+
+.sobreNosEsq h2 {
+    font-size: 2.5rem;
+    /* Tamanho maior para o título */
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.sobreNosText {
+    background-color: rgba(255, 255, 255, 0.7);
+    /* Fundo semi-transparente */
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.sobreNosEsq p {
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.sobreNosEsq button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.sobreNosEsq button:hover {
+    background-color: #0056b3;
+}
+
+.sobreNosDir {
+    position: relative;
+    width: 50%;
+    height: 100%;
+    left: 20%;
+
+    /* Garante que a imagem ocupe toda a altura disponível */
+}
+
+.sobreNosDir img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Faz a imagem cobrir toda a área sem distorcer */
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* ENTRAR EM CONTATO */
+
+.entrarEmContato {
+    padding: 50px 20px;
+    background: #f1f1f1;
+    /* Cor de fundo suave */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    color: white;
+}
+
+/* Container que segura os itens (texto + imagem) */
+.entrarEmContatoContainer {
+    display: flex;
+    width: 80%;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px;
+    gap: 30px;
+    background-color: #00000098;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+
+}
+
+/* Lado esquerdo da seção - texto */
+.eECEsq {
+    width: 45%;
+    text-align: left;
+    padding-right: 30px;
+}
+
+.eECEsq h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.eECEsq p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+/* Lado direito da seção - imagem */
+.eECDir {
+    width: 45%;
+    height: 100%;
+}
+
+.eECDir img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo do botão de WhatsApp */
+.whatsappButton {
+    display: inline-flex;
+    align-items: center;
+    background-color: #25d366;
+    /* Cor do WhatsApp */
+    color: white;
+    padding: 15px 30px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.whatsappButton:hover {
+    background-color: #128c7e;
+    /* Cor mais escura do WhatsApp */
+    transform: translateY(-5px);
+    /* Sutil efeito de elevação */
+}
+
+.whatsappButton span {
+    margin-left: 10px;
+    display: inline-block;
+}
+
+/* Nossos empreendimentos */
+
+.empreendimentosConteudo {
+    min-height: 100vh;
+}
+
+.empreendimentosAbaSuperior {
+    top: 10vh;
+    width: 100%;
+    text-align: left;
+    padding: 30px;
+}
+
+/* Estilos gerais dos filtros */
+.filtros {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 20px;
+    width: 100%;
+    padding: 30px;
+    background-color: #eaeaea;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.filtro {
+    position: relative;
+    padding: 12px 18px;
+    background-color: #4CAF50;
+    /* Verde mais destacado */
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.3s ease;
+}
+
+.filtro:hover {
+    background-color: #45a049;
+    /* Cor mais escura quando hover */
+}
+
+/* Estilos do dropdown */
+.dropdown {
+    display: none;
+    position: absolute;
+    top: 110%;
+    left: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.15);
+    padding: 10px;
+    width: 200px;
+    max-height: 300px;
+    /* Evitar que o dropdown seja muito alto */
+    overflow-y: auto;
+    z-index: 10;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0s 0.3s;
+}
+
+.filtro.active .dropdown {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease, visibility 0s 0s;
+}
+
+.dropdown label {
+    display: block;
+    padding: 8px 12px;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.dropdown label:hover {
+    background-color: #f0f0f0;
+    color: #4CAF50;
+}
+
+.dropdown label.selected {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.dropdown label.selected:hover {
+    background-color: #45a049;
+}
+
+/* Adiciona animação para o dropdown aparecer suavemente */
+.filtro.active .dropdown {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+#limparFiltrosBtn {
+    background-color: #e74c3c;
+    /* Cor de fundo vermelha */
+    color: white;
+    /* Cor do texto */
+    border: none;
+    /* Remove a borda */
+    padding: 10px 20px;
+    /* Espaçamento interno */
+    font-size: 16px;
+    /* Tamanho da fonte */
+    border-radius: 5px;
+    /* Bordas arredondadas */
+    cursor: pointer;
+    /* Indica que é clicável */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    /* Animações para transição suave */
+}
+
+#limparFiltrosBtn:hover {
+    background-color: #c0392b;
+    /* Cor de fundo mais escura ao passar o mouse */
+    transform: scale(1.05);
+    /* Leve aumento de tamanho */
+}
+
+#limparFiltrosBtn:focus {
+    outline: none;
+    /* Remove o contorno ao focar */
+    box-shadow: 0 0 5px 2px rgba(231, 76, 60, 0.6);
+    /* Adiciona um sombreado ao focar */
+}
+
+
+#prediosContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* 3 colunas */
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+}
+
+#prediosContainer a {
+    color: black;
+    background-color: #128c7e;
+    flex: 0 0 calc(100% / 3);
+}
+
+/* SOBRE */
+
+.sobreInicio {
+    background-color: rgba(255, 255, 255, 0.7);
+    /* Fundo semi-transparente */
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
 }
