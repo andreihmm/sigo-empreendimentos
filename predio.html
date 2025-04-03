@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8" />
   <title>Residencial Bela Vista - SIGO Empreendimentos</title>
-  <link rel="stylesheet" href="styles/styles.css" />
+  <!-- <link rel="stylesheet" href="styles.css" /> -->
+  <link rel="stylesheet" href="static/css/style.css" />
+  <script src="static/js/menu.js"></script>
 </head>
+
 <body>
 
-  <!-- Cabeçalho -->
-  <header>
-    <div class="logo-container">
-      <img src="imagens/logo.png" alt="Logo Sigo Empreendimentos">
-      <h1>SIGO Empreendimentos</h1>
-    </div>
-    <div class="hamburger-menu">&#9776;</div>
-  </header>
+
+  <!-- Carregar o header -->
+  <div id="header-placeholder"></div>
 
   <!-- Hero com nome, localização e botão -->
   <section class="hero-predio">
@@ -23,7 +22,7 @@
       <p>Guarapari - ES</p>
     </div>
     <a class="btn-contato-popup" href="https://wa.me/55xxxxxxxxxx" target="_blank">Contate-nos</a>
-  </section>    
+  </section>
 
   <!-- Galeria -->
   <section id="galeria" class="galeria">
@@ -66,28 +65,32 @@
     <h3>Sobre a localização</h3>
     <p>Localizado próximo à praia, com fácil acesso ao centro e comércios da região.</p>
     <div class="mapa">
-      <iframe
-        src="https://www.google.com/maps/embed?pb=..."
-        width="100%" height="300" style="border:0;" allowfullscreen=""
-        loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+      <iframe src="https://www.google.com/maps/embed?pb=..." width="100%" height="300" style="border:0;"
+        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
       </iframe>
     </div>
   </section>
 
-  <!-- Rodapé -->
-  <footer>
-    <div class="footer-left">
-      <img src="imagens/logo.png" alt="Logo Sigo Empreendimentos">
-      <p><a href="https://www.instagram.com" target="_blank">Instagram</a></p>
-    </div>
-    <div class="footer-right">
-      <p>Veja nossos imóveis em: <strong>Guarapari</strong></p>
-      <p>Fale conosco: (xx) xxxxx-xxxx</p>
-    </div>
-  </footer>
+  <div id="footer-placeholder"></div>
+
 
   <!-- Scripts dos sliders -->
   <script>
+
+    // Carregar o header
+    fetch('static/includes/header.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('header-placeholder').innerHTML = data;
+      });
+
+    // Carregar o footer
+    fetch('static/includes/footer.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('footer-placeholder').innerHTML = data;
+      });
+
     // Galeria principal
     const slides = document.querySelectorAll(".slides .slide");
     const dots = document.querySelectorAll(".dots .dot");
@@ -151,7 +154,8 @@
     });
   </script>
 
-<script src="scripts/script.js"></script>
+  <script src="static/js/predio.js"></script>
 
 </body>
+
 </html>
