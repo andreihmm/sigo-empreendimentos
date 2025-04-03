@@ -13,6 +13,42 @@
             color: green;
         }
 
+        /* Primeira seção com o vídeo */
+        .intro {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+        }
+
+        .intro video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Faz o vídeo cobrir toda a tela */
+        }
+
+        .intro .text {
+            position: absolute;
+            left: 5%;
+            /* Posiciona à esquerda */
+            top: 75%;
+            /* Posiciona um pouco para baixo */
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .intro h1 {
+            margin: 0;
+            font-size: 36px;
+            font-weight: bold;
+        }
+
+        .intro p {
+            margin-top: 10px;
+            font-size: 18px;
+        }
+
+        /* Estilo das outras seções */
         section {
             height: 100vh;
             display: flex;
@@ -21,22 +57,15 @@
             justify-content: center;
             text-align: center;
             padding: 20px;
+            position: relative;
         }
 
-        h1,
-        h2 {
-            margin-bottom: 20px;
-        }
-
-        .intro {
-            align-items: flex-start;
-            padding-left: 20px;
-        }
-
+        /* Estilo da galeria */
         .carousel {
             position: relative;
             width: 70%;
             max-width: 600px;
+            margin-top: 60px;
         }
 
         .carousel img {
@@ -45,66 +74,111 @@
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        .carousel button {
+        /* Botões de navegação na galeria */
+        .nav-button {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
             background-color: green;
             color: white;
             border: none;
-            padding: 10px;
+            padding: 15px;
             cursor: pointer;
-            font-size: 18px;
+            font-size: 24px;
             border-radius: 50%;
+            z-index: 1000;
         }
 
-        .carousel .prev {
+        .prev {
             left: 10px;
         }
 
-        .carousel .next {
+        .next {
             right: 10px;
+        }
+
+        /* Botões de traços abaixo da galeria e da planta */
+        .nav-dots {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .dot {
+            width: 15px;
+            height: 15px;
+            margin: 0 5px;
+            background-color: green;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .dot.active {
+            background-color: darkgreen;
         }
 
         iframe {
             width: 100%;
             height: 80vh;
+            margin-top: 60px;
         }
     </style>
 </head>
 
 <body>
 
-    <!-- Tela de apresentação -->
+    <!-- Tela de apresentação com vídeo de fundo -->
     <section class="intro">
-        <h1>Nome do Prédio</h1>
-        <p>Localização</p>
+        <video autoplay loop muted>
+            <source src="video-do-predio.mp4" type="video/mp4">
+            Seu navegador não suporta vídeos.
+        </video>
+        <div class="text">
+            <h1>Nome do Prédio</h1>
+            <p>Localização</p>
+        </div>
     </section>
 
     <!-- Galeria -->
-    <section>
+    <section class="gallery">
         <h2>Galeria</h2>
         <div class="carousel" id="gallery">
-            <button class="prev" onclick="changeImage(-1, 'gallery')">&#10094;</button>
             <img src="image1.jpg" alt="Imagem do Prédio">
-            <button class="next" onclick="changeImage(1, 'gallery')">&#10095;</button>
+        </div>
+        <!-- Botões de navegação dentro da galeria -->
+        <button class="nav-button prev" onclick="changeImage(-1, 'gallery')">&#10094;</button>
+        <button class="nav-button next" onclick="changeImage(1, 'gallery')">&#10095;</button>
+
+        <!-- Botões de traços para navegação -->
+        <div class="nav-dots">
+            <div class="dot" onclick="changeImageTo(0, 'gallery')"></div>
+            <div class="dot" onclick="changeImageTo(1, 'gallery')"></div>
+            <div class="dot" onclick="changeImageTo(2, 'gallery')"></div>
         </div>
     </section>
 
     <!-- Planta -->
-    <section>
+    <section class="floorplans">
         <h2>Planta</h2>
         <div class="carousel" id="floorplans">
-            <button class="prev" onclick="changeImage(-1, 'floorplans')">&#10094;</button>
             <img src="floor1.jpg" alt="Planta do Prédio">
-            <button class="next" onclick="changeImage(1, 'floorplans')">&#10095;</button>
+        </div>
+        <!-- Botões de navegação dentro da planta -->
+        <button class="nav-button prev" onclick="changeImage(-1, 'floorplans')">&#10094;</button>
+        <button class="nav-button next" onclick="changeImage(1, 'floorplans')">&#10095;</button>
+
+        <!-- Botões de traços para navegação -->
+        <div class="nav-dots">
+            <div class="dot" onclick="changeImageTo(0, 'floorplans')"></div>
+            <div class="dot" onclick="changeImageTo(1, 'floorplans')"></div>
+            <div class="dot" onclick="changeImageTo(2, 'floorplans')"></div>
         </div>
     </section>
 
     <!-- Sobre a Localização -->
     <section>
         <h2>Sobre a Localização</h2>
-        <p>Descrição detalhada da localização do prédio.</p>
+        <p style="margin-top: 60px;">Descrição detalhada da localização do prédio.</p>
     </section>
 
     <!-- Mapa -->
@@ -126,10 +200,37 @@
             if (section === "gallery") {
                 galleryIndex = (galleryIndex + direction + galleryImages.length) % galleryImages.length;
                 document.querySelector("#gallery img").src = galleryImages[galleryIndex];
+                updateDots('gallery');
             } else if (section === "floorplans") {
                 floorPlanIndex = (floorPlanIndex + direction + floorPlans.length) % floorPlans.length;
                 document.querySelector("#floorplans img").src = floorPlans[floorPlanIndex];
+                updateDots('floorplans');
             }
+        }
+
+        function changeImageTo(index, section) {
+            if (section === "gallery") {
+                galleryIndex = index;
+                document.querySelector("#gallery img").src = galleryImages[galleryIndex];
+                updateDots('gallery');
+            } else if (section === "floorplans") {
+                floorPlanIndex = index;
+                document.querySelector("#floorplans img").src = floorPlans[floorPlanIndex];
+                updateDots('floorplans');
+            }
+        }
+
+        function updateDots(section) {
+            const dots = document.querySelectorAll(`.${section} .dot`);
+            dots.forEach((dot, index) => {
+                dot.classList.remove('active');
+                if (section === 'gallery' && index === galleryIndex) {
+                    dot.classList.add('active');
+                }
+                if (section === 'floorplans' && index === floorPlanIndex) {
+                    dot.classList.add('active');
+                }
+            });
         }
     </script>
 

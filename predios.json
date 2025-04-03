@@ -1,72 +1,79 @@
 [
-    {
-        "id": 1,
-        "nome": "Prédio Alpha",
-        "localizacao": "Avenida Paulista, São Paulo",
-        "descricao": "Prédio moderno com infraestrutura de ponta e segurança 24h.",
-        "metragem": "120m²",
-        "dormitorios": 3,
-        "imagem": "predio1.jpg",
-        "link": "link-do-predio1.html"
-    },
+        {
+            "id": 1,
+            "nome": "Prédio Alpha",
+            "localizacao": "Praia do Morro, Guarapari",
+            "descricao": "Prédio moderno com infraestrutura de ponta e segurança 24h.",
+            "metragem": "120m²",
+            "dormitorios": 3,
+            "imagem": "static/img/ilha-de-capri.jpg",
+            "link": "link-do-predio1.html",
+            "estagio_obra": "Pronto"
+        },
     {
         "id": 2,
         "nome": "Prédio Beta",
-        "localizacao": "Rua dos Três Irmãos, Rio de Janeiro",
+        "localizacao": "Centro, Guarapari",
         "descricao": "Imóvel de luxo com acabamentos de alta qualidade e vista panorâmica.",
         "metragem": "150m²",
         "dormitorios": 4,
         "imagem": "predio2.jpg",
-        "link": "link-do-predio2.html"
+        "link": "link-do-predio2.html",
+        "estagio_obra": "Em construção"
     },
     {
         "id": 3,
         "nome": "Prédio Gamma",
-        "localizacao": "Rua das Acácias, Belo Horizonte",
+        "localizacao": "Praia do Morro, Guarapari",
         "descricao": "Excelente localização com fácil acesso a transportes públicos e comércio local.",
         "metragem": "100m²",
         "dormitorios": 2,
         "imagem": "predio3.jpg",
-        "link": "link-do-predio3.html"
+        "link": "link-do-predio3.html",
+        "estagio_obra": "Pronto"
     },
     {
         "id": 4,
         "nome": "Prédio Alpha",
-        "localizacao": "Avenida Paulista, São Paulo",
+        "localizacao": "Centro, Guarapari",
         "descricao": "Prédio moderno com infraestrutura de ponta e segurança 24h.",
         "metragem": "120m²",
         "dormitorios": 3,
         "imagem": "predio1.jpg",
-        "link": "link-do-predio1.html"
+        "link": "link-do-predio1.html",
+        "estagio_obra": "Em construção"
     },
     {
         "id": 5,
         "nome": "Prédio Beta",
-        "localizacao": "Rua dos Três Irmãos, Rio de Janeiro",
+        "localizacao": "Praia do Morro, Guarapari",
         "descricao": "Imóvel de luxo com acabamentos de alta qualidade e vista panorâmica.",
         "metragem": "150m²",
         "dormitorios": 4,
         "imagem": "predio2.jpg",
-        "link": "link-do-predio2.html"
+        "link": "link-do-predio2.html",
+        "estagio_obra": "Pronto"
     },
     {
         "id": 7,
         "nome": "Prédio Vasco",
-        "localizacao": "Rua dos Três Irmãos, Rio de Janeiro",
+        "localizacao": "Centro, Guarapari",
         "descricao": "Imóvel de luxo com acabamentos de alta qualidade e vista panorâmica.",
         "metragem": "150m²",
         "dormitorios": 4,
         "imagem": "predio2.jpg",
-        "link": "link-do-predio2.html"
+        "link": "link-do-predio2.html",
+        "estagio_obra": "Em construção"
     },
     {
         "id": 6,
         "nome": "Prédio Gamma",
-        "localizacao": "Rua das Acácias, Belo Horizonte",
+        "localizacao": "Praia do Morro, Guarapari",
         "descricao": "Excelente localização com fácil acesso a transportes públicos e comércio local.",
         "metragem": "100m²",
         "dormitorios": 2,
         "imagem": "predio3.jpg",
-        "link": "link-do-predio3.html"
+        "link": "link-do-predio3.html",
+        "estagio_obra": "Pronto"
     }
 ]

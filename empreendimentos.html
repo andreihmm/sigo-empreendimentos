@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="static/css/style.css">
+    <script src="static/js/menu.js"></script>
+</head>
+
+
+
+<body>
+    <!-- Carregar o header -->
+    <div id="header-placeholder"></div>
+
+    <div class="hero">
+        <div class="overlay"></div>
+        <div class="content">
+            <h1>Sigo Empreendimentos</h1>
+            <p>Um novo empreendimento moderno e sustentável está chegando à cidade. Reserve sua unidade agora!</p>
+        </div>
+    </div>
+
+    <section class="empreendimentosConteudo">
+        <div class="empreendimentosAbaSuperior">
+            <h2>Nossos empreendimentos</h2>
+
+            <!-- Filtros -->
+            <div class="filtros">
+                <div class="filtro" onclick="toggleDropdown('localizacao')">
+                    <span>Localização</span>
+                    <div class="dropdown" id="localizacao">
+                        <label><input type="radio" name="localizacao" value="Praia do Morro"
+                                onchange="filtrarPredios()"> Praia do Morro</label>
+                        <label><input type="radio" name="localizacao" value="Centro" onchange="filtrarPredios()">
+                            Centro</label>
+                    </div>
+                </div>
+
+                <div class="filtro" onclick="toggleDropdown('tamanho')">
+                    <span>Tamanho</span>
+                    <div class="dropdown" id="tamanho">
+                        <label><input type="radio" name="tamanho" value="Pequeno" onchange="filtrarPredios()"> Pequeno
+                            (até 100m²)</label>
+                        <label><input type="radio" name="tamanho" value="Médio" onchange="filtrarPredios()"> Médio
+                            (100m² - 200m²)</label>
+                        <label><input type="radio" name="tamanho" value="Grande" onchange="filtrarPredios()"> Grande
+                            (200m²+)</label>
+                    </div>
+                </div>
+
+                <div class="filtro" onclick="toggleDropdown('dormitorios')">
+                    <span>Dormitórios</span>
+                    <div class="dropdown" id="dormitorios">
+                        <label><input type="radio" name="dormitorios" value="1" onchange="filtrarPredios()"> 1
+                            Dormitório</label>
+                        <label><input type="radio" name="dormitorios" value="2" onchange="filtrarPredios()"> 2
+                            Dormitórios</label>
+                        <label><input type="radio" name="dormitorios" value="3" onchange="filtrarPredios()"> 3
+                            Dormitórios</label>
+                        <label><input type="radio" name="dormitorios" value="4" onchange="filtrarPredios()"> 4+
+                            Dormitórios</label>
+                    </div>
+                </div>
+
+                <div class="filtro" onclick="toggleDropdown('estagio')">
+                    <span>Estágio da Obra</span>
+                    <div class="dropdown" id="estagio">
+                        <label><input type="radio" name="estagio" value="Pronto" onchange="filtrarPredios()">
+                            Pronto</label>
+                        <label><input type="radio" name="estagio" value="Em construção" onchange="filtrarPredios()"> Em
+                            construção</label>
+                    </div>
+                </div>
+                <button id="limparFiltrosBtn" onclick="limparFiltros()">Limpar Filtros</button>
+
+            </div>
+
+            <!-- Espaço onde os prédios serão exibidos -->
+            <div id="prediosContainer"></div>
+
+        </div>
+    </section>
+
+    <!-- Carregar o footer -->
+    <div id="footer-placeholder"></div>
+
+    <script>
+        // Carregar o header
+        fetch('static/includes/header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-placeholder').innerHTML = data;
+            });
+
+        // Carregar o footer
+        fetch('static/includes/footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer-placeholder').innerHTML = data;
+            });
+
+        function toggleDropdown(id) {
+            // Fecha todas as dropdowns antes de abrir a desejada
+            document.querySelectorAll('.filtro').forEach(filtro => {
+                const dropdown = filtro.querySelector('.dropdown');
+                if (dropdown && dropdown.id !== id) {
+                    filtro.classList.remove('active');
+                }
+            });
+
+            // Alterna a visibilidade do dropdown clicado
+            const filtro = document.getElementById(id).closest('.filtro');
+            filtro.classList.toggle('active');
+        }
+
+        // Fechar dropdowns ao clicar fora
+        document.addEventListener('click', function (event) {
+            // Verifica se o clique não ocorreu dentro de um filtro
+            if (!event.target.closest('.filtro')) {
+                document.querySelectorAll('.filtro').forEach(filtro => {
+                    filtro.classList.remove('active');
+                });
+            }
+        });
+
+
+        let predios = [];
+
+        // Carrega os prédios do JSON
+        async function carregarPredios() {
+            try {
+                const response = await fetch('predios.json');
+                predios = await response.json();
+                filtrarPredios(); // Inicializa com todos os prédios exibidos
+            } catch (error) {
+                console.error("Erro ao carregar os prédios:", error);
+            }
+        }
+
+        // Filtrar os prédios conforme os filtros selecionados
+        function filtrarPredios() {
+            const localizacaoSelecionada = document.querySelector('input[name="localizacao"]:checked')?.value;
+            const tamanhoSelecionado = document.querySelector('input[name="tamanho"]:checked')?.value;
+            const dormitoriosSelecionado = document.querySelector('input[name="dormitorios"]:checked')?.value;
+            const estagioSelecionado = document.querySelector('input[name="estagio"]:checked')?.value;
+
+            let prediosFiltrados = [...predios];
+
+            // Filtra por localização
+            // Filtra por localização (ajustado para usar includes)
+            if (localizacaoSelecionada) {
+                prediosFiltrados = prediosFiltrados.filter(predio => {
+                    return predio.localizacao.includes(localizacaoSelecionada);
+                });
+            }
+
+            // Filtra por tamanho (converte metragem para número)
+            if (tamanhoSelecionado) {
+                prediosFiltrados = prediosFiltrados.filter(predio => {
+                    const metragem = parseInt(predio.metragem.replace('m²', ''));
+                    return (tamanhoSelecionado === "Pequeno" && metragem <= 100) ||
+                        (tamanhoSelecionado === "Médio" && metragem > 100 && metragem <= 200) ||
+                        (tamanhoSelecionado === "Grande" && metragem > 200);
+                });
+            }
+
+            // Filtra por número de dormitórios
+            if (dormitoriosSelecionado) {
+                prediosFiltrados = prediosFiltrados.filter(predio => {
+                    return dormitoriosSelecionado === "4" ? predio.dormitorios >= 4 : predio.dormitorios == dormitoriosSelecionado;
+                });
+            }
+
+            // Filtra por estágio da obra
+            if (estagioSelecionado) {
+                prediosFiltrados = prediosFiltrados.filter(predio => predio.estagio_obra === estagioSelecionado);
+            }
+
+            exibirPredios(prediosFiltrados);
+
+            document.querySelectorAll('.filtro.active').forEach(filtro => {
+                filtro.classList.remove('active');
+            });
+        }
+
+        // Atualiza a interface com os prédios filtrados
+        function exibirPredios(lista) {
+            const container = document.getElementById('prediosContainer');
+            container.innerHTML = ''; // Limpa antes de adicionar novos
+
+            if (lista.length === 0) {
+                container.innerHTML = '<p>Nenhum empreendimento encontrado.</p>';
+                return;
+            }
+
+            lista.forEach(predio => {
+                const cardHTML = `
+        <a href="${predio.link}" class="card">
+            <img src="${predio.imagem}" alt="Imagem de ${predio.nome}" class="building-img">
+            <div class="card-content">
+                <div class="card-text"> <!-- Adicionando a classe card-text -->
+                    <h3>${predio.nome}</h3>
+                    <div class="location">
+                        <img src="static/img/icons/pin.png" alt="Ícone de localização" class="pin-icon">
+                        <span>${predio.localizacao}</span>
+                    </div>
+                    <p><strong>Descrição:</strong> ${predio.descricao}</p>
+                    <ul>
+                        <li><strong>Metragem:</strong> ${predio.metragem}</li>
+                        <li><strong>Nº de dormitórios:</strong> ${predio.dormitorios}</li>
+                    </ul>
+                </div>
+            </div>
+        </a>
+    `;
+                container.innerHTML += cardHTML;
+            });
+        }
+
+        // Função para limpar os filtros
+        function limparFiltros() {
+            // Remove a seleção de todos os inputs de filtro
+            document.querySelectorAll('input[type="radio"]:checked').forEach(input => input.checked = false);
+
+            // Chama a função de filtragem novamente, mas agora sem nenhum filtro
+            filtrarPredios();
+        }
+
+        // Carregar prédios ao carregar a página
+        window.onload = carregarPredios;
+
+    </script>
+</body>
+
+</html>

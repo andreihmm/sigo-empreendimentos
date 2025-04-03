@@ -41,7 +41,9 @@
                     <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officiis rem nam tempore harum nobis
                         fuga ea, quae illum delectus commodi aut quisquam ducimus similique sint. Vitae, velit
                         provident. Dolore, quos!</p>
-                    <button>Saiba mais</button>
+                    <a href="sobre.html">
+                        <button>Saiba mais</button>
+                    </a>
                 </div>
             </div>
             <div class="sobreNosDir">
@@ -113,27 +115,48 @@
                     const img = document.createElement('img');
                     img.src = predio.imagem;
                     img.alt = `Imagem de ${predio.nome}`;
+                    img.classList.add('building-img'); // Classe para personalização da imagem do prédio
+
+                    // Criar a div de texto
+                    const cardText = document.createElement('div');
+                    cardText.classList.add('card-text');
 
                     const h3 = document.createElement('h3');
                     h3.textContent = predio.nome;
 
-                    const pLocalizacao = document.createElement('p');
-                    pLocalizacao.textContent = `Localização: ${predio.localizacao}`;
+                    // Criar a div para localização com ícone de pin
+                    const locationDiv = document.createElement('div');
+                    locationDiv.classList.add('location');
+
+                    const pinIcon = document.createElement('img');
+                    pinIcon.src = 'static/img/icons/pin.png'; // Caminho do ícone do pin
+                    pinIcon.alt = 'Ícone de localização';
+                    pinIcon.classList.add('pin-icon'); // Classe para personalização do pin
+
+                    const locationText = document.createElement('span');
+                    locationText.textContent = predio.localizacao;
+
+                    locationDiv.appendChild(pinIcon);
+                    locationDiv.appendChild(locationText);
 
                     const pDescricao = document.createElement('p');
-                    pDescricao.textContent = `Descrição: ${predio.descricao}`;
+                    pDescricao.textContent = `${predio.descricao}`;
 
                     const ul = document.createElement('ul');
                     ul.innerHTML = `
-                    <li><strong>Metragem:</strong> ${predio.metragem}</li>
-                    <li><strong>Nº de dormitórios:</strong> ${predio.dormitorios}</li>
-                `;
+                <li><strong>Metragem:</strong> ${predio.metragem}</li>
+                <li><strong>Nº de dormitórios:</strong> ${predio.dormitorios}</li>
+            `;
 
+                    // Adicionar elementos na div de texto
+                    cardText.appendChild(h3);
+                    cardText.appendChild(locationDiv);
+                    cardText.appendChild(pDescricao);
+                    cardText.appendChild(ul);
+
+                    // Adicionar imagem e div de texto dentro do card
                     card.appendChild(img);
-                    card.appendChild(h3);
-                    card.appendChild(pLocalizacao);
-                    card.appendChild(pDescricao);
-                    card.appendChild(ul);
+                    card.appendChild(cardText);
                     cardLink.appendChild(card);
                     cardSlider.appendChild(cardLink);
                 });

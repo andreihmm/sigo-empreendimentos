@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Conheça a Sigo Empreendimentos</title>
+    <script src="static/js/menu.js"></script>
+    <link rel="stylesheet" href="static/css/style.css">
+    <script>
+        fetch('static/includes/header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-placeholder').innerHTML = data;
+            });
+
+        // Carregar o footer
+        fetch('static/includes/footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer-placeholder').innerHTML = data;
+            });
+
+    </script>
+
+    <!-- 
+    Se quiser separar o CSS em outro arquivo, basta criar um styles.css 
+    e trocar a tag <style> por <link rel="stylesheet" href="styles.css" /> 
+  -->
+    <style>
+        .hero {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .hero img {
+            width: 100%;
+            max-width: 600px;
+            /* Ajuste conforme a imagem desejada */
+            height: auto;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+        }
+
+        .hero h2 {
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .hero p {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        /* SEÇÃO MISSÃO, VISÃO, VALORES */
+        .cards-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+            /* Para acomodar melhor em telas menores */
+        }
+
+        .card {
+            background-color: #f5f5f5;
+            padding: 1rem;
+            width: 200px;
+            min-height: 100px;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Cabeçalho --
+    <!-- Carregar o header -->
+    <div id="header-placeholder"></div>
+
+    <!-- Conteúdo principal -->
+    <main>
+        <div class="hero">
+            <div class="overlay"></div>
+            <div class="content">
+                <h1>Sigo Empreendimentos</h1>
+                <p>Um novo empreendimento moderno e sustentável está chegando à cidade. Reserve sua unidade agora!</p>
+            </div>
+        </div>
+
+        <section class="cards-container">
+            <div class="card">
+                <h3>Missão</h3>
+                <p>Aqui vai um breve texto sobre a missão da empresa.</p>
+            </div>
+            <div class="card">
+                <h3>Visão</h3>
+                <p>Aqui vai um breve texto sobre a visão da empresa.</p>
+            </div>
+            <div class="card">
+                <h3>Valores</h3>
+                <p>Aqui vai um breve texto sobre os valores da empresa.</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Rodapé -->
+    <div id="footer-placeholder"></div>
+
+
+</body>
+
+</html>
