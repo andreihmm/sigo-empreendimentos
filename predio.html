@@ -1,239 +1,157 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página do Prédio</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: white;
-            color: green;
-        }
-
-        /* Primeira seção com o vídeo */
-        .intro {
-            position: relative;
-            width: 100%;
-            height: 100vh;
-        }
-
-        .intro video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            /* Faz o vídeo cobrir toda a tela */
-        }
-
-        .intro .text {
-            position: absolute;
-            left: 5%;
-            /* Posiciona à esquerda */
-            top: 75%;
-            /* Posiciona um pouco para baixo */
-            color: white;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-
-        .intro h1 {
-            margin: 0;
-            font-size: 36px;
-            font-weight: bold;
-        }
-
-        .intro p {
-            margin-top: 10px;
-            font-size: 18px;
-        }
-
-        /* Estilo das outras seções */
-        section {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 20px;
-            position: relative;
-        }
-
-        /* Estilo da galeria */
-        .carousel {
-            position: relative;
-            width: 70%;
-            max-width: 600px;
-            margin-top: 60px;
-        }
-
-        .carousel img {
-            width: 100%;
-            border-radius: 10px;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Botões de navegação na galeria */
-        .nav-button {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: green;
-            color: white;
-            border: none;
-            padding: 15px;
-            cursor: pointer;
-            font-size: 24px;
-            border-radius: 50%;
-            z-index: 1000;
-        }
-
-        .prev {
-            left: 10px;
-        }
-
-        .next {
-            right: 10px;
-        }
-
-        /* Botões de traços abaixo da galeria e da planta */
-        .nav-dots {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
-
-        .dot {
-            width: 15px;
-            height: 15px;
-            margin: 0 5px;
-            background-color: green;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-
-        .dot.active {
-            background-color: darkgreen;
-        }
-
-        iframe {
-            width: 100%;
-            height: 80vh;
-            margin-top: 60px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <title>Residencial Bela Vista - SIGO Empreendimentos</title>
+  <link rel="stylesheet" href="styles/styles.css" />
 </head>
-
 <body>
 
-    <!-- Tela de apresentação com vídeo de fundo -->
-    <section class="intro">
-        <video autoplay loop muted>
-            <source src="video-do-predio.mp4" type="video/mp4">
-            Seu navegador não suporta vídeos.
-        </video>
-        <div class="text">
-            <h1>Nome do Prédio</h1>
-            <p>Localização</p>
-        </div>
-    </section>
+  <!-- Cabeçalho -->
+  <header>
+    <div class="logo-container">
+      <img src="imagens/logo.png" alt="Logo Sigo Empreendimentos">
+      <h1>SIGO Empreendimentos</h1>
+    </div>
+    <div class="hamburger-menu">&#9776;</div>
+  </header>
 
-    <!-- Galeria -->
-    <section class="gallery">
-        <h2>Galeria</h2>
-        <div class="carousel" id="gallery">
-            <img src="image1.jpg" alt="Imagem do Prédio">
-        </div>
-        <!-- Botões de navegação dentro da galeria -->
-        <button class="nav-button prev" onclick="changeImage(-1, 'gallery')">&#10094;</button>
-        <button class="nav-button next" onclick="changeImage(1, 'gallery')">&#10095;</button>
+  <!-- Hero com nome, localização e botão -->
+  <section class="hero-predio">
+    <div class="hero-titulo">
+      <h2>Residencial Bela Vista</h2>
+      <p>Guarapari - ES</p>
+    </div>
+    <a class="btn-contato-popup" href="https://wa.me/55xxxxxxxxxx" target="_blank">Contate-nos</a>
+  </section>    
 
-        <!-- Botões de traços para navegação -->
-        <div class="nav-dots">
-            <div class="dot" onclick="changeImageTo(0, 'gallery')"></div>
-            <div class="dot" onclick="changeImageTo(1, 'gallery')"></div>
-            <div class="dot" onclick="changeImageTo(2, 'gallery')"></div>
-        </div>
-    </section>
+  <!-- Galeria -->
+  <section id="galeria" class="galeria">
+    <h3>Galeria</h3>
+    <div class="slider">
+      <button class="prev">&#10094;</button>
+      <div class="slides">
+        <img src="imagens/galeria1.jpg" class="slide active" alt="Imagem 1">
+        <img src="imagens/galeria2.jpg" class="slide" alt="Imagem 2">
+        <img src="imagens/galeria3.jpg" class="slide" alt="Imagem 3">
+      </div>
+      <button class="next">&#10095;</button>
+      <div class="dots">
+        <span class="dot active" data-index="0"></span>
+        <span class="dot" data-index="1"></span>
+        <span class="dot" data-index="2"></span>
+      </div>
+    </div>
+  </section>
 
-    <!-- Planta -->
-    <section class="floorplans">
-        <h2>Planta</h2>
-        <div class="carousel" id="floorplans">
-            <img src="floor1.jpg" alt="Planta do Prédio">
-        </div>
-        <!-- Botões de navegação dentro da planta -->
-        <button class="nav-button prev" onclick="changeImage(-1, 'floorplans')">&#10094;</button>
-        <button class="nav-button next" onclick="changeImage(1, 'floorplans')">&#10095;</button>
+  <!-- Planta -->
+  <section id="planta" class="planta">
+    <h3>Plantas do Imóvel</h3>
+    <div class="slider planta-slider">
+      <button class="prev planta-prev">&#10094;</button>
+      <div class="slides planta-slides">
+        <img src="imagens/planta1.jpg" class="slide active" alt="Planta 1">
+        <img src="imagens/planta2.jpg" class="slide" alt="Planta 2">
+      </div>
+      <button class="next planta-next">&#10095;</button>
+      <div class="dots planta-dots">
+        <span class="dot active" data-index="0"></span>
+        <span class="dot" data-index="1"></span>
+      </div>
+    </div>
+  </section>
 
-        <!-- Botões de traços para navegação -->
-        <div class="nav-dots">
-            <div class="dot" onclick="changeImageTo(0, 'floorplans')"></div>
-            <div class="dot" onclick="changeImageTo(1, 'floorplans')"></div>
-            <div class="dot" onclick="changeImageTo(2, 'floorplans')"></div>
-        </div>
-    </section>
+  <!-- Localização -->
+  <section id="localizacao" class="localizacao">
+    <h3>Sobre a localização</h3>
+    <p>Localizado próximo à praia, com fácil acesso ao centro e comércios da região.</p>
+    <div class="mapa">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=..."
+        width="100%" height="300" style="border:0;" allowfullscreen=""
+        loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+  </section>
 
-    <!-- Sobre a Localização -->
-    <section>
-        <h2>Sobre a Localização</h2>
-        <p style="margin-top: 60px;">Descrição detalhada da localização do prédio.</p>
-    </section>
+  <!-- Rodapé -->
+  <footer>
+    <div class="footer-left">
+      <img src="imagens/logo.png" alt="Logo Sigo Empreendimentos">
+      <p><a href="https://www.instagram.com" target="_blank">Instagram</a></p>
+    </div>
+    <div class="footer-right">
+      <p>Veja nossos imóveis em: <strong>Guarapari</strong></p>
+      <p>Fale conosco: (xx) xxxxx-xxxx</p>
+    </div>
+  </footer>
 
-    <!-- Mapa -->
-    <section>
-        <h2>Mapa</h2>
-        <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.8354345093686!2d144.95373531568225!3d-37.81627944202148!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d43f3f858fd%3A0x5030bfbca7e58d0!2sSome%20Building!5e0!3m2!1sen!2sbr!4v1614144325075!5m2!1sen!2sbr"
-            allowfullscreen="" loading="lazy"></iframe>
-    </section>
+  <!-- Scripts dos sliders -->
+  <script>
+    // Galeria principal
+    const slides = document.querySelectorAll(".slides .slide");
+    const dots = document.querySelectorAll(".dots .dot");
+    const prevBtn = document.querySelector(".prev");
+    const nextBtn = document.querySelector(".next");
+    let currentSlide = 0;
 
-    <script>
-        const galleryImages = ["image1.jpg", "image2.jpg", "image3.jpg"];
-        const floorPlans = ["floor1.jpg", "floor2.jpg", "floor3.jpg"];
+    function showSlide(index) {
+      slides.forEach(slide => slide.classList.remove("active"));
+      dots.forEach(dot => dot.classList.remove("active"));
+      slides[index].classList.add("active");
+      dots[index].classList.add("active");
+    }
 
-        let galleryIndex = 0;
-        let floorPlanIndex = 0;
+    prevBtn.addEventListener("click", () => {
+      currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+      showSlide(currentSlide);
+    });
 
-        function changeImage(direction, section) {
-            if (section === "gallery") {
-                galleryIndex = (galleryIndex + direction + galleryImages.length) % galleryImages.length;
-                document.querySelector("#gallery img").src = galleryImages[galleryIndex];
-                updateDots('gallery');
-            } else if (section === "floorplans") {
-                floorPlanIndex = (floorPlanIndex + direction + floorPlans.length) % floorPlans.length;
-                document.querySelector("#floorplans img").src = floorPlans[floorPlanIndex];
-                updateDots('floorplans');
-            }
-        }
+    nextBtn.addEventListener("click", () => {
+      currentSlide = (currentSlide + 1) % slides.length;
+      showSlide(currentSlide);
+    });
 
-        function changeImageTo(index, section) {
-            if (section === "gallery") {
-                galleryIndex = index;
-                document.querySelector("#gallery img").src = galleryImages[galleryIndex];
-                updateDots('gallery');
-            } else if (section === "floorplans") {
-                floorPlanIndex = index;
-                document.querySelector("#floorplans img").src = floorPlans[floorPlanIndex];
-                updateDots('floorplans');
-            }
-        }
+    dots.forEach(dot => {
+      dot.addEventListener("click", () => {
+        currentSlide = parseInt(dot.getAttribute("data-index"));
+        showSlide(currentSlide);
+      });
+    });
 
-        function updateDots(section) {
-            const dots = document.querySelectorAll(`.${section} .dot`);
-            dots.forEach((dot, index) => {
-                dot.classList.remove('active');
-                if (section === 'gallery' && index === galleryIndex) {
-                    dot.classList.add('active');
-                }
-                if (section === 'floorplans' && index === floorPlanIndex) {
-                    dot.classList.add('active');
-                }
-            });
-        }
-    </script>
+    // Galeria de plantas
+    const plantaSlides = document.querySelectorAll(".planta-slides .slide");
+    const plantaDots = document.querySelectorAll(".planta-dots .dot");
+    const plantaPrevBtn = document.querySelector(".planta-prev");
+    const plantaNextBtn = document.querySelector(".planta-next");
+    let currentPlantaSlide = 0;
+
+    function showPlantaSlide(index) {
+      plantaSlides.forEach(slide => slide.classList.remove("active"));
+      plantaDots.forEach(dot => dot.classList.remove("active"));
+      plantaSlides[index].classList.add("active");
+      plantaDots[index].classList.add("active");
+    }
+
+    plantaPrevBtn.addEventListener("click", () => {
+      currentPlantaSlide = (currentPlantaSlide - 1 + plantaSlides.length) % plantaSlides.length;
+      showPlantaSlide(currentPlantaSlide);
+    });
+
+    plantaNextBtn.addEventListener("click", () => {
+      currentPlantaSlide = (currentPlantaSlide + 1) % plantaSlides.length;
+      showPlantaSlide(currentPlantaSlide);
+    });
+
+    plantaDots.forEach(dot => {
+      dot.addEventListener("click", () => {
+        currentPlantaSlide = parseInt(dot.getAttribute("data-index"));
+        showPlantaSlide(currentPlantaSlide);
+      });
+    });
+  </script>
+
+<script src="scripts/script.js"></script>
 
 </body>
-
 </html>
